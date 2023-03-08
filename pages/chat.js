@@ -32,7 +32,8 @@ export default function Home() {
         throw data.error || new Error(`Request failed with status ${response.status}`);
       }
 
-      setResult(data.result);
+      // setResult(data.result);
+      setResult(data.result.replaceAll("\n", "<br />"));
       setQuestionInput("");
     } catch(error) {
       // Consider implementing your own error handling logic here
@@ -69,7 +70,8 @@ export default function Home() {
             <img src="/cat-what.gif" className={styles.loading}/>
           </div>
         )}
-        <div className={styles.result}>{result}</div>
+        {/* <div className={styles.result}>{result}</div> */}
+        {result && <div className={styles.result} dangerouslySetInnerHTML={{__html: result}}/>}
       </main>
     </div>
   );
