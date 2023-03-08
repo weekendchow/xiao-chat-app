@@ -16,6 +16,7 @@ export default function Home() {
     }
 
     setLoading(true)
+    setResult("")
 
     try {
       const response = await fetch("/api/generate-chat", {
@@ -62,11 +63,13 @@ export default function Home() {
           />
           <input type="submit" value="Answer question" />
         </form>
-        {/* <div className={styles.result}>{result}</div> */}
-        <div
-          className={styles.result}
-          dangerouslySetInnerHTML={{ __html: result }}
-        />
+        {loading && (
+          <div>
+            <h2>Thinking hard...</h2>
+            <img src="/cat-what.gif" className={styles.loading}/>
+          </div>
+        )}
+        <div className={styles.result}>{result}</div>
       </main>
     </div>
   );
