@@ -1,3 +1,4 @@
+import React from 'react'
 import Head from "next/head";
 import { useState } from "react";
 import styles from "./index.module.css";
@@ -5,9 +6,17 @@ import styles from "./index.module.css";
 export default function Home() {
   const [questionInput, setQuestionInput] = useState("");
   const [result, setResult] = useState();
+  const [loading, setLoading] = useState(false)
 
   async function onSubmit(event) {
     event.preventDefault();
+
+    if(loading){
+      return
+    }
+
+    setLoading(true)
+
     try {
       const response = await fetch("/api/generate-chat", {
         method: "POST",
@@ -28,6 +37,8 @@ export default function Home() {
       // Consider implementing your own error handling logic here
       console.error(error);
       alert(error.message);
+    } finally{
+      setLoading(false)
     }
   }
 
